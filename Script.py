@@ -19,7 +19,7 @@ Hᴇʀᴇ Is Tʜᴇ Hᴇʟᴘ Fᴏʀ Mʏ Cᴏᴍᴍᴀɴᴅs.</b>"""
     
 ‣ ᴍʏ ɴᴀᴍᴇ : <a href=https://t.me/{}>{}</a>
 ‣ ᴍʏ ʙᴇsᴛ ғʀɪᴇɴᴅ : <a href='tg://settings'>ᴛʜɪs ᴘᴇʀsᴏɴ</a> 
-‣ ᴅᴇᴠᴇʟᴏᴘᴇʀ : <a href='https://t.me/knmlpro2'>ᴛᴇᴄʜ ᴠᴊ</a> 
+‣ ᴅᴇᴠᴇʟᴏᴘᴇʀ : <a href='https://t.me/knmlpro2'><b>KNMLPRO2</b></a> 
 ‣ ʟɪʙʀᴀʀʏ : <a href='https://docs.pyrogram.org/'>ᴘʏʀᴏɢʀᴀᴍ</a> 
 ‣ ʟᴀɴɢᴜᴀɢᴇ : <a href='https://www.python.org/download/releases/3.0/'>ᴘʏᴛʜᴏɴ 3</a> 
 ‣ ᴅᴀᴛᴀ ʙᴀsᴇ : <a href='https://www.mongodb.com/'>ᴍᴏɴɢᴏ ᴅʙ</a> 
@@ -233,10 +233,7 @@ Nᴀᴍᴇ - {}"""
 
     IMDB_TEMPLATE_TXT = """
 <b><i>🧿 ᴛɪᴛᴛʟᴇ :  {title} \n🌟 ʀᴀᴛɪɴɢ : {rating} \n🎭 ɢᴇɴʀᴇ : {genres} \n📆 ʀᴇʟᴇᴀsᴇ : {year} \n⏰ ᴅᴜʀᴀᴛɪᴏɴ : {runtime} \n🎙️ʟᴀɴɢᴜᴀɢᴇ : {languages} \n★ ᴘᴏᴡᴇʀᴇᴅ ʙʏ : @KNMLPRO2 </i></b>
-
-
-⏰Result Shown in: {remaining_seconds} <i>seconds</i> 🔥
-
+<b>⏰Result Shown in: {remaining_seconds} <i>seconds</i> 🔥
 Requested by : {message.from_user.mention}</b>"""
     
     ALL_FILTERS = """
