@@ -232,9 +232,7 @@ Nᴀᴍᴇ - {}"""
 <i><b>@Knmlpro2 - {file_caption}</b>  \n<b>🔰Pᴏᴡᴇʀᴇᴅ Bʏ ➜ @Knmlpro2 \n🔰Gʀᴏᴜᴘ ➜ @Knmlpro2_group </b></i>""" 
 
     IMDB_TEMPLATE_TXT = """
-<b><i>🧿 ᴛɪᴛᴛʟᴇ :  {title} \n🌟 ʀᴀᴛɪɴɢ : {rating} \n🎭 ɢᴇɴʀᴇ : {genres} \n📆 ʀᴇʟᴇᴀsᴇ : {year} \n⏰ ᴅᴜʀᴀᴛɪᴏɴ : {runtime} \n🎙️ʟᴀɴɢᴜᴀɢᴇ : {languages} \n★ ᴘᴏᴡᴇʀᴇᴅ ʙʏ : @KNMLPRO2 </i></b>
-<b>⏰Result Shown in: {remaining_seconds} <i>seconds</i> 🔥
-Requested by : {message.from_user.mention}</b>"""
+<b><i>🧿 ᴛɪᴛᴛʟᴇ :  {title} \n🌟 ʀᴀᴛɪɴɢ : {rating} \n🎭 ɢᴇɴʀᴇ : {genres} \n📆 ʀᴇʟᴇᴀsᴇ : {year} \n⏰ ᴅᴜʀᴀᴛɪᴏɴ : {runtime} \n🎙️ʟᴀɴɢᴜᴀɢᴇ : {languages} \n★ ᴘᴏᴡᴇʀᴇᴅ ʙʏ : @KNMLPRO2 </i></b>"""
     
     ALL_FILTERS = """
 <b>Hᴇʏ {}, Tʜᴇsᴇ ᴀʀᴇ ᴍʏ ᴛʜʀᴇᴇ ᴛʏᴘᴇs ᴏғ ғɪʟᴛᴇʀs.</b>"""
