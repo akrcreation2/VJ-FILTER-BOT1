@@ -1,7 +1,6 @@
 # Don't Remove Credit @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot @Tech_VJ
 # Ask Doubt on telegram @KingVJ01
-
 from pyrogram import Client, filters
 from pyrogram.enums import MessageMediaType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ForceReply
@@ -47,7 +46,7 @@ async def refunc(client, message):
                     out = filename.split(".")
                     out_name = out[-1]
                     out_filename = new_name + "." + out_name
-                   #    print(f"out name: {out_filename}")
+                #    print(f"out name: {out_filename}")
                 except:
                     await message.reply_to_message.delete()
                     await message.reply_text("**Error** :  No  Extension in File, Not Supporting", reply_to_message_id=mg_id)
@@ -65,4 +64,4 @@ async def refunc(client, message):
                 await message.reply_text(f"**Select the output file type**\n**🎞New Name ->** :- {out_filename}",
                                         reply_to_message_id=mg_id, reply_markup=markup)
     except Exception as e:
-        print(f"error: {e}"
+        print(f"error: {e}")
