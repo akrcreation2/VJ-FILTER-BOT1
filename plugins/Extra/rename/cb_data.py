@@ -4,7 +4,6 @@
 
 from plugins.Extra.utils import progress_for_pyrogram, convert, humanbytes
 from pyrogram import Client, filters
-from plugins.Extra.rename.filedetect import refunc
 from pyrogram.types import (  InlineKeyboardButton, InlineKeyboardMarkup,ForceReply)
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
@@ -19,22 +18,19 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 @Client.on_callback_query(filters.regex('cancel'))
 async def cancel(bot,update):
-    try:
-        await update.message.delete()
-    except:
-        return
+	try:
+           await update.message.delete()
+	except:
+           return
 
 @Client.on_callback_query(filters.regex('rename'))
-async def rename(bot, update):
-    user_id = update.message.chat.id
-    date = update.message.date
-    await update.message.delete()
-	#await update.message.reply_text("__𝙿𝚕𝚎𝚊𝚜𝚎 𝙴𝚗𝚝𝚎𝚛 𝙽𝚎𝚠 𝙵𝚒𝚕𝚎𝙽𝚊𝚖𝚎...__",	
-	#reply_to_message_id=update.message.reply_to_message.id,  
-	#reply_markup=ForceReply(True))
-    await update.message.reply_text("__𝙿𝚕𝚎𝚊𝚜𝚎 𝙴𝚗𝚝𝚎𝚛 𝙽𝚎𝚠 𝙵𝚒𝚕𝚎𝙽𝚊𝚖𝚎...__", reply_to_message_id=update.message.reply_to_message.id)
-    msg = await bot.listen(update.from_user.id)
-    await refunc(bot, update, msg.text, update.message.reply_to_message)
+async def rename(bot,update):
+	user_id = update.message.chat.id
+	date = update.message.date
+	await update.message.delete()
+	await update.message.reply_text("__𝙿𝚕𝚎𝚊𝚜𝚎 𝙴𝚗𝚝𝚎𝚛 𝙽𝚎𝚠 𝙵𝚒𝚕𝚎𝙽𝚊𝚖𝚎...__",	
+	reply_to_message_id=update.message.reply_to_message.id,  
+	reply_markup=ForceReply(True))
 
 
 @Client.on_callback_query(filters.regex("upload"))
