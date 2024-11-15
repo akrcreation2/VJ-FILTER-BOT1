@@ -51,20 +51,7 @@ FILE_STORE_CHANNEL = [int(ch) for ch in (environ.get('FILE_STORE_CHANNEL', '-100
 DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '0').split()]
 
 # MongoDB information
-MULTIPLE_DATABASE = bool(environ.get('MULTIPLE_DATABASE', False)) # Set True or False
-
-DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://Akfilter:Anisha.123@cluster0.r4rkrjc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0") # IF Multiple Database Is False Then Fill Only This Database Url.
-if MULTIPLE_DATABASE == False:
-    USER_DB_URI = DATABASE_URI
-    OTHER_DB_URI = DATABASE_URI
-    FILE_DB_URI = DATABASE_URI
-    SEC_FILE_DB_URI = DATABASE_URI
-else:
-    USER_DB_URI = DATABASE_URI # This Db is for User Data Store
-    OTHER_DB_URI = environ.get('OTHER_DB_URI', "") # This Db Is For Other Data Store
-    FILE_DB_URI = environ.get('FILE_DB_URI', "") # This Db Is For File Data Store
-    SEC_FILE_DB_URI = environ.get('SEC_FILE_DB_URI', "") # This Db is for File Data Store When First Db Is Going To Be Full.
-
+DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://Akfilter:Anisha.123@cluster0.r4rkrjc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 DATABASE_NAME = environ.get('DATABASE_NAME', "Cluster0")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
