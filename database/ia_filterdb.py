@@ -47,7 +47,7 @@ async def save_file(media):
         file = Media(
             file_id=file_id,
             file_ref=file_ref,
-            file_name=file_name
+            file_name=file_name,
             file_size=media.file_size,
             file_type=media.file_type,
             mime_type=media.mime_type,
@@ -57,26 +57,18 @@ async def save_file(media):
         logger.exception('Error occurred while saving file in database')
         return False, 2
     else:
-        if VJMedia == Media2:
-            found = {'file_id': file_id}
-            check = Media.find_one(found)
-            if check:
-                print(f"{file_name} is already saved.")
-                return False, 0
-
         try:
             await file.commit()
         except DuplicateKeyError:      
-            print(f"{file_name} is already saved.")
+            logger.warning(
+                f'{getattr(media, "file_name", "NO_FILE")} is already saved in database'
+            )
+
             return False, 0
         else:
-            print(f"{file_name} is saved to database.")
+            logger.info(f'{getattr(media, "file_name", "NO_FILE")} is saved to database')
             return True, 1
 
-async def get_file_db_size():
-    data_size = (await db.command("dbstats"))['dataSize']
-    data_size2 = (await sec_db.command("dbstats"))['dataSize']
-    return data_size, data_size2
 
 async def get_search_results(chat_id, query, file_type=None, max_results=10, offset=0, filter=False):
     """For given query return (results, next_offset)"""
@@ -119,26 +111,19 @@ async def get_search_results(chat_id, query, file_type=None, max_results=10, off
     if file_type:
         filter['file_type'] = file_type
 
-    result1 = await Media.count_documents(filter)
-    result2 = await Media2.count_documents(filter)
-    total_results = result1 + result2
+    total_results = await Media.count_documents(filter)
     next_offset = offset + max_results
 
     if next_offset > total_results:
         next_offset = ''
 
-    cursor1 = Media.find(filter)
-    cursor2 = Media2.find(filter)
+    cursor = Media.find(filter)
     # Sort by recent
-    cursor1.sort('$natural', -1)
-    cursor2.sort('$natural', -1)
+    cursor.sort('$natural', -1)
     # Slice files according to offset and max results
-    cursor1.skip(offset).limit(max_results)
-    cursor2.skip(offset).limit(max_results)
+    cursor.skip(offset).limit(max_results)
     # Get list of files
-    files1 = await cursor1.to_list(length=max_results)
-    files2 = await cursor2.to_list(length=max_results)
-    files = files1 + files2
+    files = await cursor.to_list(length=max_results)
 
     return files, next_offset, total_results
 
@@ -169,19 +154,13 @@ async def get_bad_files(query, file_type=None, filter=False):
     if file_type:
         filter['file_type'] = file_type
 
-    result1 = await Media.count_documents(filter)
-    result2 = await Media2.count_documents(filter)
-    total_results = result1 + result2
+    total_results = await Media.count_documents(filter)
 
-    cursor1 = Media.find(filter)
-    cursor2 = Media2.find(filter)
+    cursor = Media.find(filter)
     # Sort by recent
-    cursor1.sort('$natural', -1)
-    cursor2.sort('$natural', -1)
+    cursor.sort('$natural', -1)
     # Get list of files
-    files1 = await cursor1.to_list(length=max_results)
-    files2 = await cursor2.to_list(length=max_results)
-    files = files1 + files2
+    files = await cursor.to_list(length=total_results)
 
     return files, total_results
 
@@ -189,9 +168,6 @@ async def get_file_details(query):
     filter = {'file_id': query}
     cursor = Media.find(filter)
     filedetails = await cursor.to_list(length=1)
-    if not filedetails:
-        cursor1 = Media2.find(filter)
-        filedetails = await cursor1.to_list(length=1)
     return filedetails
 
 
