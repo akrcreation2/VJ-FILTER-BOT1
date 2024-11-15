@@ -11,37 +11,19 @@ from pymongo.errors import DuplicateKeyError
 from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
-from info import FILE_DB_URI, SEC_FILE_DB_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER, MAX_B_TN
+from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER, MAX_B_TN
 from utils import get_settings, save_group_settings
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
-client = AsyncIOMotorClient(FILE_DB_URI)
+client = AsyncIOMotorClient(DATABASE_URI)
 db = client[DATABASE_NAME]
 instance = Instance.from_db(db)
 
 @instance.register
 class Media(Document):
-    file_id = fields.StrField(attribute='_id')
-    file_ref = fields.StrField(allow_none=True)
-    file_name = fields.StrField(required=True)
-    file_size = fields.IntField(required=True)
-    file_type = fields.StrField(allow_none=True)
-    mime_type = fields.StrField(allow_none=True)
-    caption = fields.StrField(allow_none=True)
-
-    class Meta:
-        indexes = ('$file_name', )
-        collection_name = COLLECTION_NAME
-
-sec_client = AsyncIOMotorClient(SEC_FILE_DB_URI)
-sec_db = sec_client[DATABASE_NAME]
-sec_instance = Instance.from_db(sec_db)
-
-@sec_instance.register
-class Media2(Document):
     file_id = fields.StrField(attribute='_id')
     file_ref = fields.StrField(allow_none=True)
     file_name = fields.StrField(required=True)
@@ -61,16 +43,11 @@ async def save_file(media):
     # TODO: Find better way to get same file_id for same media to avoid duplicates
     file_id, file_ref = unpack_new_file_id(media.file_id)
     file_name = re.sub(r"(_|\-|\.|\+)", " ", str(media.file_name))
-    data_size = (await db.command("dbstats"))['dataSize']
-    if data_size > 503316480:
-        VJMedia = Media2
-    else:
-        VJMedia = Media
     try:
-        file = VJMedia(
+        file = Media(
             file_id=file_id,
             file_ref=file_ref,
-            file_name=file_name,
+            file_name=file_name
             file_size=media.file_size,
             file_type=media.file_type,
             mime_type=media.mime_type,
